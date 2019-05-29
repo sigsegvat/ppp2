@@ -1,0 +1,30 @@
+plugins {
+    id "java"
+}
+
+buildDir = "gradle-build"
+
+group 'at.willhaben.ppp'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+task npmBuild (type: Exec) {
+    inputs.dir("src")
+    inputs.dir("public")
+    inputs.file("package.json")
+    outputs.dir("build")
+    commandLine("npm","run","build")
+}
+
+
+jar {
+    dependsOn 'npmBuild'
+    into ('META-INF/resources/webjars/webapp') {
+        from project.tasks.getByName("npmBuild").outputs.files
+    }
+
+
+}
+
+
