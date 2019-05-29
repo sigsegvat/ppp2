@@ -1,0 +1,4 @@
+rootProject.name = 'ppp2'
+
+include 'web'
+include 'frontend'
